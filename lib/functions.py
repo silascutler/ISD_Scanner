@@ -52,9 +52,10 @@ class ISD_Scanner(object):
 			file_lines = open(self.file, 'r')
 		counter = 0
 		for line in file_lines:
-				regex = self.ruleset[counter % len(self.ruleset)] 
-				self.pool.spawn(self.parse_line, line, regex )
-				counter += 1
+                        for regex in self.ruleset:
+                                self.pool.spawn(self.parse_line, line, regex )
+                                counter += 1
+
 		self.pool.join()
 
 # Validates regular expression
